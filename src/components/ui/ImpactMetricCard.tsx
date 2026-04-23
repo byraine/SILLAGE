@@ -11,29 +11,29 @@ interface ImpactMetricCardProps {
 
 const accentStyles: Record<string, { border: string; glow: string; valueColor: string }> = {
   pink: {
-    border: 'border-accent/20',
-    glow: 'shadow-[0_0_30px_rgba(139,168,112,0.12)]',
-    valueColor: 'text-accent',
+    border: 'border-border',
+    glow: '',
+    valueColor: 'text-text',
   },
   violet: {
-    border: 'border-violet/20',
-    glow: 'shadow-[0_0_30px_rgba(200,223,168,0.1)]',
-    valueColor: 'text-violet',
+    border: 'border-border',
+    glow: '',
+    valueColor: 'text-accent-dim',
   },
   emerald: {
-    border: 'border-emerald-500/20',
-    glow: 'shadow-[0_0_30px_rgba(16,185,129,0.1)]',
-    valueColor: 'text-emerald-400',
+    border: 'border-border',
+    glow: '',
+    valueColor: 'text-text',
   },
   orange: {
-    border: 'border-orange-500/20',
-    glow: 'shadow-[0_0_30px_rgba(249,115,22,0.1)]',
-    valueColor: 'text-orange-400',
+    border: 'border-border',
+    glow: '',
+    valueColor: 'text-muted',
   },
   red: {
-    border: 'border-red-500/20',
-    glow: 'shadow-[0_0_30px_rgba(239,68,68,0.1)]',
-    valueColor: 'text-red-400',
+    border: 'border-border',
+    glow: '',
+    valueColor: 'text-muted',
   },
 }
 

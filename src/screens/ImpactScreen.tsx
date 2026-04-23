@@ -48,6 +48,7 @@ export function ImpactScreen() {
   const { wardrobe, totalCarbon, totalWater } = useWardrobe()
   const [activeAction, setActiveAction] = useState<number | null>(null)
   const [showShareCard, setShowShareCard] = useState(false)
+  const [activeTab, setActiveTab] = useState<'trace' | 'action'>('trace')
 
   const isEmpty = wardrobe.length === 0
 
@@ -75,35 +76,37 @@ export function ImpactScreen() {
       <VideoBackground
         src="/videos/impact.mp4"
         overlayClass="video-overlay"
-        className="min-h-[60dvh] flex flex-col justify-end"
+        className="flex flex-col justify-start"
       >
-        <div className="px-5 pb-10 pt-28 text-center w-full">
-          <p
-            className="text-xs uppercase tracking-[0.3em] text-accent mb-4 opacity-0 animate-fade-in delay-100"
-            style={{ animationFillMode: 'forwards' }}
-          >
-            Your Impact Story
-          </p>
+        <div className="px-5 pb-10 pt-24 text-center w-full">
           <h1
-            className="font-display text-4xl font-semibold leading-tight mb-4 opacity-0 animate-fade-up delay-200"
+            className="text-sm uppercase tracking-[0.3em] text-accent opacity-0 animate-fade-up delay-200"
             style={{ animationFillMode: 'forwards' }}
           >
-            <span className="gradient-text">The trace you leave</span>
-            <br />
-            <span className="text-text/90">behind.</span>
+            The trace you leave behind.
           </h1>
-          <p
-            className="text-muted text-sm leading-relaxed max-w-sm mx-auto opacity-0 animate-fade-up delay-300"
-            style={{ animationFillMode: 'forwards' }}
-          >
-            Sillage — the scent trail left in the air after someone passes.
-            Fashion leaves its own invisible trail.
-          </p>
+          {/* ── Tabs ─────────────────────────────────────────────────────── */}
+          <div className="flex items-center justify-center gap-1 mt-6">
+            {(['trace', 'action'] as const).map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className="px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.15em] font-sans transition-all duration-200"
+                style={{
+                  color: activeTab === tab ? 'rgba(139,26,43,1)' : 'rgba(139,26,43,0.7)',
+                  background: activeTab === tab ? 'rgba(139,26,43,0.30)' : 'transparent',
+                }}
+              >
+                {tab === 'trace' ? 'Trace' : 'Action Plan'}
+              </button>
+            ))}
+          </div>
         </div>
       </VideoBackground>
 
-      <div className="px-4 pt-6 space-y-6">
+      <div className="px-4 pt-2 space-y-6">
 
+      {activeTab === 'trace' && <>
         {/* ── Summary card ──────────────────────────────────────────────── */}
         {isEmpty ? (
           <GlassCard variant="pink" className="p-6 text-center">
@@ -186,6 +189,9 @@ export function ImpactScreen() {
           ))}
         </div>
 
+      </>}
+
+      {activeTab === 'action' && <>
         {/* ── Actions ───────────────────────────────────────────────────── */}
         <div>
           <p className="text-xs text-muted uppercase tracking-widest mb-4 px-1">
@@ -198,8 +204,8 @@ export function ImpactScreen() {
                 onClick={() => setActiveAction(activeAction === i ? null : i)}
                 className={`w-full text-left rounded-2xl p-5 border transition-all duration-300 ${
                   activeAction === i
-                    ? 'glass-pink border-accent/30 shadow-[0_0_30px_rgba(139,168,112,0.1)]'
-                    : 'glass border-border hover:border-border-bright'
+                    ? 'glass-pink border-burgundy/40 shadow-metric'
+                    : 'glass border-burgundy/25 hover:border-burgundy/60'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -230,17 +236,9 @@ export function ImpactScreen() {
           </div>
         </div>
 
-        {/* ── Closing editorial ─────────────────────────────────────────── */}
-        <GlassCard variant="violet" className="p-6 text-center">
-          <p className="font-display text-2xl text-text leading-snug mb-4">
-            "The most sustainable garment is the one you already own."
-          </p>
-          <p className="text-muted text-xs">
-            — Ellen MacArthur Foundation, A New Textiles Economy (2017)
-          </p>
-        </GlassCard>
+      </>}
 
-        {/* ── Navigation ────────────────────────────────────────────────── */}
+{/* ── Navigation ────────────────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row gap-3">
           <Link to="/scan" className="flex-1 btn-primary text-sm text-center py-4">
             Scan More Garments
@@ -254,7 +252,7 @@ export function ImpactScreen() {
         {!isEmpty && (
           <button
             onClick={() => setShowShareCard(true)}
-            className="w-full flex items-center justify-center gap-2 rounded-2xl border border-border-bright py-4 text-sm text-muted hover:text-text hover:border-accent/30 transition-all duration-200"
+            className="w-full flex items-center justify-center gap-2 rounded-2xl border border-burgundy/40 py-4 text-sm text-burgundy hover:border-burgundy transition-all duration-200"
           >
             <span>↗</span> Share Wardrobe Impact Card
           </button>

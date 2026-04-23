@@ -38,8 +38,8 @@ export function MethodologyModal({ onClose }: MethodologyModalProps) {
 
         {/* Disclaimer */}
         <div className="glass-pink rounded-xl p-4 mb-6">
-          <p className="text-xs text-blush/80 leading-relaxed">
-            <GlowIcon name="warning" size={12} /> <strong className="text-blush">Educational estimates only.</strong> These
+          <p className="text-xs text-muted leading-relaxed">
+            <GlowIcon name="warning" size={12} /> <strong className="text-text">Educational estimates only.</strong> These
             figures are simplified approximations for portfolio demonstration purposes.
             Real garment impacts vary enormously by supply chain, factory, dye chemistry,
             and consumer behaviour. Do not cite these numbers as scientific data.

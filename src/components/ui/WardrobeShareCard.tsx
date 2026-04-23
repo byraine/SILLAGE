@@ -68,77 +68,85 @@ export function WardrobeShareCard({
           ref={cardRef}
           style={{
             width: 360,
-            background: 'linear-gradient(160deg, #0D110C 0%, #141A12 55%, #0D110C 100%)',
-            borderRadius: 24,
+            background: '#F5F3EE',
+            borderRadius: 2,
             padding: '32px 28px 28px',
-            fontFamily: 'Inter, system-ui, sans-serif',
+            fontFamily: '"IBM Plex Mono", "Courier New", monospace',
             position: 'relative',
             overflow: 'hidden',
+            border: '1px solid #D8D5CE',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
           }}
         >
-          {/* Glow orbs */}
-          <div style={{ position: 'absolute', top: -80, right: -60, width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,168,112,0.18) 0%, transparent 70%)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: -60, left: -50, width: 180, height: 180, borderRadius: '50%', background: 'radial-gradient(circle, rgba(200,223,168,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+          {/* Subtle paper texture overlay */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(180,177,170,0.06) 24px)',
+              pointerEvents: 'none',
+            }}
+          />
 
           {/* Header */}
-          <div style={{ marginBottom: 20 }}>
-            <p style={{ fontSize: 11, letterSpacing: '0.25em', textTransform: 'uppercase', color: '#8BA870', margin: 0, marginBottom: 2 }}>
+          <div style={{ marginBottom: 20, position: 'relative' }}>
+            <p style={{ fontSize: 9, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#A8A5A0', margin: 0, marginBottom: 4 }}>
               Wardrobe Impact
             </p>
-            <p style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', margin: 0, background: 'linear-gradient(135deg, #D8ECC8 0%, #8BA870 45%, #C8DFA8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <p style={{ fontSize: 18, fontWeight: 600, letterSpacing: '0.25em', textTransform: 'uppercase', margin: 0, color: '#C41E3A', fontFamily: '"Poiret One", sans-serif' }}>
               SILLAGE
             </p>
           </div>
 
           {/* Divider */}
-          <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(139,168,112,0.4), transparent)', marginBottom: 22 }} />
+          <div style={{ height: 1, background: 'rgba(180, 177, 170, 0.6)', marginBottom: 22 }} />
 
           {/* Headline stat */}
-          <p style={{ fontSize: 13, color: '#7A8E6A', margin: 0, marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <p style={{ fontSize: 9, color: '#A8A5A0', margin: 0, marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
             {wardrobe.length} garment{wardrobe.length !== 1 ? 's' : ''} scanned
           </p>
 
           {/* Key numbers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 22 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 20 }}>
             {[
-              { label: 'Total Water', value: formatLitres(totalWater), color: '#B8CDA0' },
-              { label: 'Total Carbon', value: formatCarbon(totalCarbon), color: '#8BA870' },
-              { label: 'Avg / Wear', value: `${(avgIpw * 1000).toFixed(1)}g`, color: '#D8ECC8' },
+              { label: 'Total Water', value: formatLitres(totalWater) },
+              { label: 'Total Carbon', value: formatCarbon(totalCarbon) },
+              { label: 'Avg / Wear', value: `${(avgIpw * 1000).toFixed(1)}g` },
             ].map(s => (
-              <div key={s.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(46,61,37,0.7)', borderRadius: 12, padding: '10px 10px' }}>
-                <p style={{ fontSize: 9, color: '#7A8E6A', margin: 0, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.label}</p>
-                <p style={{ fontSize: 13, fontWeight: 600, color: s.color, margin: 0 }}>{s.value}</p>
+              <div key={s.label} style={{ background: 'rgba(228,225,218,0.6)', border: '1px solid rgba(180,177,170,0.5)', borderRadius: 0, padding: '9px 10px' }}>
+                <p style={{ fontSize: 8, color: '#A8A5A0', margin: 0, marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{s.label}</p>
+                <p style={{ fontSize: 12, fontWeight: 500, color: '#1A1916', margin: 0 }}>{s.value}</p>
               </div>
             ))}
           </div>
 
           {/* Garment list — top 4 */}
-          <div style={{ marginBottom: 20 }}>
-            <p style={{ fontSize: 10, color: '#2E3D25', margin: 0, marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+          <div style={{ marginBottom: 18 }}>
+            <p style={{ fontSize: 8, color: '#A8A5A0', margin: 0, marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.15em' }}>
               Items
             </p>
             {wardrobe.slice(0, 4).map(item => (
-              <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                <p style={{ fontSize: 12, color: '#B8CDA0', margin: 0, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: 8 }}>
+              <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 7, borderBottom: '1px solid rgba(180,177,170,0.25)', paddingBottom: 7 }}>
+                <p style={{ fontSize: 11, color: '#3D3C39', margin: 0, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: 8 }}>
                   {item.garment.name}
                 </p>
-                <p style={{ fontSize: 11, color: '#7A8E6A', margin: 0, flexShrink: 0 }}>
+                <p style={{ fontSize: 10, color: '#A8A5A0', margin: 0, flexShrink: 0, letterSpacing: '0.04em' }}>
                   {formatCarbon(item.impact.carbonKg)}
                 </p>
               </div>
             ))}
             {wardrobe.length > 4 && (
-              <p style={{ fontSize: 11, color: '#2E3D25', margin: 0, marginTop: 4 }}>
+              <p style={{ fontSize: 9, color: '#A8A5A0', margin: 0, marginTop: 4, letterSpacing: '0.08em' }}>
                 +{wardrobe.length - 4} more
               </p>
             )}
           </div>
 
           {/* Divider */}
-          <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(46,61,37,0.8), transparent)', marginBottom: 14 }} />
+          <div style={{ height: 1, background: 'rgba(180, 177, 170, 0.5)', marginBottom: 14 }} />
 
           {/* Footer */}
-          <p style={{ fontSize: 10, color: '#2E3D25', margin: 0, textAlign: 'center', letterSpacing: '0.04em' }}>
+          <p style={{ fontSize: 8, color: '#A8A5A0', margin: 0, textAlign: 'center', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             Educational estimate only · sillage.design
           </p>
         </div>

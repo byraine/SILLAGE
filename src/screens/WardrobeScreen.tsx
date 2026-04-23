@@ -142,15 +142,15 @@ export function WardrobeScreen() {
                       onClick={() => toggleCompare(item)}
                       className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                         isSelected(item)
-                          ? 'border-accent/50 bg-accent/10 text-accent'
-                          : 'border-border text-muted hover:border-border-bright hover:text-text'
+                          ? 'border-burgundy/60 bg-burgundy/5 text-accent'
+                          : 'border-burgundy/30 text-muted hover:border-burgundy hover:text-text'
                       }`}
                     >
                       {isSelected(item) ? '✓ Comparing' : 'Compare'}
                     </button>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-xs text-faint hover:text-red-400 transition-colors px-2"
+                      className="text-xs text-faint hover:text-muted transition-colors px-2"
                     >
                       Remove
                     </button>
@@ -162,7 +162,7 @@ export function WardrobeScreen() {
             {/* Add more */}
             <Link
               to="/scan"
-              className="flex items-center justify-center gap-2 w-full rounded-2xl border border-dashed border-border py-4 text-muted text-sm hover:border-accent/30 hover:text-text transition-all"
+              className="flex items-center justify-center gap-2 w-full rounded-2xl border border-dashed border-burgundy/40 py-4 text-burgundy text-sm hover:border-burgundy transition-all"
             >
               <span className="text-accent">+</span> Scan another garment
             </Link>
@@ -210,13 +210,13 @@ export function WardrobeScreen() {
                   <div className="grid grid-cols-3 bg-surface-2 p-4 border-b border-border">
                     <div />
                     <div className="text-center">
-                      <p className={`text-xs font-medium truncate px-1 ${winner === 'a' ? 'text-emerald-400' : 'text-text/80'}`}>
+                      <p className={`text-xs font-medium truncate px-1 ${winner === 'a' ? 'text-text' : 'text-text/60'}`}>
                         {compareA.garment.name}
                         {winner === 'a' && <span className="ml-1">✓</span>}
                       </p>
                     </div>
                     <div className="text-center">
-                      <p className={`text-xs font-medium truncate px-1 ${winner === 'b' ? 'text-emerald-400' : 'text-text/80'}`}>
+                      <p className={`text-xs font-medium truncate px-1 ${winner === 'b' ? 'text-text' : 'text-text/60'}`}>
                         {compareB.garment.name}
                         {winner === 'b' && <span className="ml-1">✓</span>}
                       </p>
@@ -276,10 +276,10 @@ export function WardrobeScreen() {
                         }`}
                       >
                         <p className="text-muted text-xs self-center">{row.label}</p>
-                        <p className={`text-xs text-center self-center font-medium ${aBetter ? 'text-emerald-400' : 'text-text/70'}`}>
+                        <p className={`text-xs text-center self-center font-medium ${aBetter ? 'text-text font-semibold' : 'text-text/60'}`}>
                           {row.a}
                         </p>
-                        <p className={`text-xs text-center self-center font-medium ${bBetter ? 'text-emerald-400' : 'text-text/70'}`}>
+                        <p className={`text-xs text-center self-center font-medium ${bBetter ? 'text-text font-semibold' : 'text-text/60'}`}>
                           {row.b}
                         </p>
                       </div>
@@ -313,7 +313,7 @@ export function WardrobeScreen() {
                   className={`w-full text-left rounded-xl p-3 border transition-all text-sm ${
                     isSelected(item)
                       ? 'border-accent/40 bg-accent/8 text-text'
-                      : 'border-border text-muted hover:border-border-bright hover:text-text glass'
+                      : 'border-burgundy/25 text-muted hover:border-burgundy/60 hover:text-text glass'
                   }`}
                 >
                   <span className={isSelected(item) ? 'text-accent mr-2' : 'text-faint mr-2'}>

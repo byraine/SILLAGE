@@ -9,12 +9,11 @@ export function LandingScreen() {
       <VideoBackground
         src="/videos/hero.mp4"
         overlayClass="video-overlay"
-        className="min-h-dvh flex flex-col"
+        className="flex flex-col"
       >
-        <div className="flex-1 flex flex-col px-5 pt-16">
-          <div className="flex-1" />
+        <div className="flex flex-col px-5 pt-20 pb-10">
           {/* Bottom-anchored hero content */}
-          <div className="pb-32">
+          <div className="pb-8">
             <div
               className="flex items-center justify-center gap-2.5 mb-3 opacity-0 animate-fade-in delay-100"
               style={{ animationFillMode: 'forwards' }}
@@ -22,45 +21,55 @@ export function LandingScreen() {
               <img
                 src="/images/logo.png"
                 alt=""
-                className="h-6 w-auto object-contain"
+                className="h-10 w-auto object-contain"
                 onError={e => { ;(e.target as HTMLImageElement).style.display = 'none' }}
               />
               <span
-                className="font-display text-2xl font-semibold tracking-[0.35em] uppercase"
+                className="font-poiret text-2xl tracking-[0.35em] uppercase"
                 style={{
-                  background: 'linear-gradient(135deg, #D8ECC8 0%, #8BA870 50%, #C8DFA8 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  color: 'rgba(0,0,0,0.5)',
+                  WebkitTextFillColor: 'rgba(0,0,0,0.5)',
                 }}
               >
                 SILLAGE
               </span>
             </div>
             <p
-              className="text-[10px] uppercase tracking-[0.4em] text-accent mb-5 text-center opacity-0 animate-fade-in delay-200"
-              style={{ animationFillMode: 'forwards' }}
+              className="text-[10px] uppercase tracking-[0.4em] mb-5 text-center opacity-0 animate-fade-in delay-200"
+              style={{ color: 'rgba(0,0,0,0.5)', animationFillMode: 'forwards' }}
             >
               AI-Assisted Fashion Impact Scanner
             </p>
             <h1
-              className="font-display text-5xl font-semibold leading-[0.95] tracking-[-0.02em] mb-6 opacity-0 animate-fade-up delay-300"
+              className="font-sans text-2xl leading-tight tracking-[0.05em] uppercase mb-6 opacity-0 animate-fade-up delay-300"
               style={{ animationFillMode: 'forwards' }}
             >
-              <span className="gradient-text block">Every thread</span>
-              <span className="text-text/90 block">tells a story.</span>
+              <span className="block text-text">Every thread</span>
+              <span className="block text-text">tells a story.</span>
             </h1>
             <p
-              className="text-sm text-muted leading-loose mb-8 max-w-[26ch] opacity-0 animate-fade-up delay-400"
+              className="font-sans text-sm text-text leading-loose mb-8 max-w-[26ch] opacity-0 animate-fade-up delay-400"
               style={{ animationFillMode: 'forwards' }}
             >
-              Scan any garment and discover the water, carbon, and human cost woven into the fabric of what you wear.
+              Scan any garment and discover the unseen cost of fashion.
             </p>
             <div
               className="flex flex-col gap-3 opacity-0 animate-fade-up delay-500"
               style={{ animationFillMode: 'forwards' }}
             >
-              <Link to="/scan" className="btn-primary text-center">
+              <Link
+                to="/scan"
+                className="btn-hero text-center inline-flex items-center justify-center px-8 py-4 text-xs tracking-widest uppercase font-sans no-underline"
+                style={{
+                  borderRadius: '9999px',
+                  border: '1px solid rgba(220,218,212,0.35)',
+                  color: 'rgba(180,177,170,0.95)',
+                  background: 'rgba(160,158,152,0.35)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 0 16px rgba(200,200,195,0.15), 0 0 40px rgba(200,200,195,0.08), inset 0 1px 0 rgba(255,255,255,0.15)',
+                }}
+              >
                 Start Scan →
               </Link>
             </div>
@@ -77,9 +86,6 @@ export function LandingScreen() {
         <h2 className="font-display text-3xl font-semibold text-text mb-4 leading-tight tracking-tight">
           Fashion is the world's second-largest industrial water consumer.
         </h2>
-        <p className="text-muted text-sm leading-loose mb-10">
-          A single cotton T-shirt uses up to 2,700 litres of water — enough for one person to drink for over two years. SILLAGE makes this visible, one garment at a time.
-        </p>
         {/* 2x2 stat grid */}
         <div className="grid grid-cols-2 gap-3">
           {[
@@ -124,14 +130,26 @@ export function LandingScreen() {
           ))}
         </div>
         <div className="mt-8">
-          <Link to="/scan" className="btn-primary block text-center">Begin Your Scan</Link>
+          <Link
+            to="/scan"
+            className="btn-hero block text-center inline-flex items-center justify-center w-full px-8 py-4 text-xs tracking-widest uppercase font-sans no-underline"
+            style={{
+              borderRadius: '9999px',
+              border: '1px solid rgba(220,218,212,0.35)',
+              color: 'rgba(180,177,170,0.95)',
+              background: 'rgba(160,158,152,0.35)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 0 16px rgba(200,200,195,0.15), 0 0 40px rgba(200,200,195,0.08), inset 0 1px 0 rgba(255,255,255,0.15)',
+            }}
+          >Begin Your Scan</Link>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="bg-background border-t border-border px-5 py-6">
         <div className="flex flex-col gap-2">
-          <span className="gradient-text font-display text-sm font-semibold tracking-[0.4em] uppercase">SILLAGE</span>
+          <span className="font-poiret text-sm tracking-[0.4em] uppercase" style={{ color: '#C41E3A' }}>SILLAGE</span>
           <p className="text-faint text-xs leading-relaxed">
             A concept portfolio demo. All impact figures are educational estimates only.
           </p>

@@ -22,7 +22,7 @@ export function GlassCard({
 }: GlassCardProps) {
   return (
     <div
-      className={`rounded-[2rem] ${variantClasses[variant]} ${className} ${
+      className={`rounded ${variantClasses[variant]} ${className} ${
         onClick ? 'cursor-pointer transition-all duration-300 hover:scale-[1.01]' : ''
       }`}
       onClick={onClick}

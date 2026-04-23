@@ -6,13 +6,13 @@ interface MaterialTagProps {
 
 const fiberColors: Record<string, string> = {
   natural:
-    'border-emerald-500/30 bg-emerald-950/40 text-emerald-300',
+    'border-border bg-surface-2 text-text',
   synthetic:
-    'border-red-500/30 bg-red-950/40 text-red-300',
+    'border-border-bright bg-surface-2 text-muted',
   recycled:
-    'border-green-600/30 bg-green-950/40 text-green-300',
+    'border-border bg-surface-2 text-text',
   'semi-synthetic':
-    'border-yellow-500/30 bg-yellow-950/40 text-yellow-300',
+    'border-border bg-surface-2 text-muted',
 }
 
 /**

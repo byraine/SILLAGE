@@ -34,36 +34,36 @@ function GlobeOrb({ country }: { country: string }) {
       {/* North America */}
       <path
         d="M 8,17 L 22,19 L 31,22 L 28,33 L 33,39 L 50,44 L 56,36 L 69,24 L 61,11 L 33,11 L 8,17 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* South America */}
       <path
         d="M 56,44 L 67,46 L 72,53 L 75,58 L 72,69 L 67,81 L 61,81 L 58,75 L 58,61 L 56,53 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* Europe */}
       <path
         d="M 94,31 L 94,17 L 106,11 L 117,11 L 122,19 L 119,28 L 111,31 L 100,29 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* Africa */}
       <path
         d="M 92,31 L 100,29 L 111,31 L 122,43 L 128,44 L 124,53 L 119,61 L 111,69 L 108,69 L 106,61 L 97,53 L 92,47 L 92,31 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* Asia */}
       <path
         d="M 122,28 L 125,11 L 139,11 L 178,11 L 181,25 L 181,31 L 172,44 L 161,50 L 153,47 L 144,44 L 136,46 L 128,43 L 122,28 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* Australia */}
       <path
         d="M 163,62 L 164,69 L 172,68 L 178,71 L 183,71 L 186,67 L 186,62 L 182,60 L 176,57 L 172,58 L 167,60 Z"
-        fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.7" strokeLinejoin="round"
+        fill="none" stroke="rgba(196,30,58,0.5)" strokeWidth="0.7" strokeLinejoin="round"
       />
       {/* Country dot — outer ring + solid core */}
-      <circle cx={dot[0]} cy={dot[1]} r="4" fill="rgba(139,168,112,0.25)" />
-      <circle cx={dot[0]} cy={dot[1]} r="2" fill="#8BA870" />
+      <circle cx={dot[0]} cy={dot[1]} r="4" fill="rgba(196,30,58,0.2)" />
+      <circle cx={dot[0]} cy={dot[1]} r="2" fill="#C41E3A" />
     </svg>
   )
 }
@@ -234,13 +234,12 @@ export function ScanScreen() {
                     key={garment.id}
                     onClick={() => handleSelectGarment(garment)}
                     className={`
-                      flex-shrink-0 w-40 h-40 rounded-2xl p-4 flex flex-col justify-between text-left transition-all duration-200 border
-                      ${
-                        isSelected
-                          ? 'glass-pink border-accent/40 shadow-[0_0_24px_rgba(139,168,112,0.15)]'
-                          : 'glass border-border hover:border-border-bright'
-                      }
+                      preset-card flex-shrink-0 w-40 h-40 rounded-2xl p-4 flex flex-col justify-between text-left transition-all duration-200 border
+                      ${isSelected ? 'border-burgundy/60' : 'glass border-border hover:border-burgundy/40'}
                     `}
+                    style={{
+                      background: isSelected ? 'rgba(196,30,58,0.22)' : undefined,
+                    }}
                   >
                     <div className="flex items-start justify-between">
                       <span className="font-display text-lg font-semibold text-faint/50 leading-none select-none">
@@ -271,9 +270,18 @@ export function ScanScreen() {
               <button
                 onClick={handleStartScan}
                 disabled={!selected}
-                className={`w-full btn-primary py-5 rounded-xl text-sm tracking-wide ${
+                className={`btn-hero w-full px-8 py-4 text-xs tracking-widest uppercase font-sans ${
                   !selected ? 'opacity-40 cursor-not-allowed' : ''
                 }`}
+                style={{
+                  borderRadius: '9999px',
+                  border: '1px solid rgba(220,218,212,0.35)',
+                  color: 'rgba(180,177,170,0.95)',
+                  background: 'rgba(160,158,152,0.35)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 0 16px rgba(200,200,195,0.15), 0 0 40px rgba(200,200,195,0.08), inset 0 1px 0 rgba(255,255,255,0.15)',
+                }}
               >
                 {selected ? `Scan "${selected.name}"` : 'Select a garment to continue'}
               </button>
@@ -297,7 +305,7 @@ export function ScanScreen() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
+            className="absolute inset-0 w-full h-full object-cover opacity-30 scale-150"
             aria-hidden="true"
           />
           {/* Gradient fallback */}
@@ -305,7 +313,7 @@ export function ScanScreen() {
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 50% 30%, rgba(200,223,168,0.18) 0%, rgba(8,10,7,0) 65%), radial-gradient(ellipse at 80% 80%, rgba(139,168,112,0.14) 0%, rgba(8,10,7,0) 55%)',
+                'radial-gradient(ellipse at 50% 30%, rgba(245,243,238,0.12) 0%, rgba(245,243,238,0) 65%)',
             }}
           />
           <div className="video-overlay-dark absolute inset-0" />
@@ -366,8 +374,9 @@ export function ScanScreen() {
         <div
           className="w-32 h-32 rounded-full mb-10 overflow-hidden relative animate-float"
           style={{
-            background: 'radial-gradient(circle, rgba(139,168,112,0.25) 0%, transparent 70%)',
-            boxShadow: '0 0 60px rgba(139,168,112,0.35)',
+            background: 'radial-gradient(circle, rgba(219,218,210,0.8) 0%, rgba(232,229,222,0.3) 70%)',
+            boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
+            border: '1px solid rgba(180,177,170,0.4)',
           }}
         >
           <GlobeOrb country={selected?.countryOfOrigin ?? ''} />
@@ -385,18 +394,40 @@ export function ScanScreen() {
           Your garment's impact has been calculated. Ready to see the full report?
         </p>
 
-        <div className="flex flex-row gap-6">
-          <button onClick={handleViewResults} className="btn-primary">
-            View Full Report →
+        <div className="flex flex-row justify-center gap-6">
+          <button
+            onClick={handleViewResults}
+            className="btn-hero flex flex-col items-center justify-center text-[9px] tracking-widest uppercase font-sans"
+            style={{
+              width: 80, height: 80,
+              borderRadius: '9999px',
+              border: '1px solid rgba(196,30,58,0.5)',
+              color: 'rgba(196,30,58,0.95)',
+              background: 'rgba(196,30,58,0.18)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 0 16px rgba(196,30,58,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
+            }}
+          >
+            <span className="text-lg mb-0.5">→</span>
+            <span>Report</span>
           </button>
           <button
-            onClick={() => {
-              setPhase('select')
-              setSelected(null)
+            onClick={() => { setPhase('select'); setSelected(null) }}
+            className="btn-hero flex flex-col items-center justify-center text-[9px] tracking-widest uppercase font-sans"
+            style={{
+              width: 80, height: 80,
+              borderRadius: '9999px',
+              border: '1px solid rgba(196,30,58,0.5)',
+              color: 'rgba(196,30,58,0.95)',
+              background: 'rgba(196,30,58,0.18)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: '0 0 16px rgba(196,30,58,0.15), inset 0 1px 0 rgba(255,255,255,0.1)',
             }}
-            className="btn-ghost"
           >
-            Scan Another
+            <span className="text-lg mb-0.5">↺</span>
+            <span>Scan</span>
           </button>
         </div>
       </div>

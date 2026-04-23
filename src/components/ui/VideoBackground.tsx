@@ -46,7 +46,7 @@ export function VideoBackground({
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 0%, rgba(200,223,168,0.18) 0%, rgba(8,10,7,0) 70%), radial-gradient(ellipse at 80% 80%, rgba(139,168,112,0.12) 0%, rgba(8,10,7,0) 60%)',
+            'radial-gradient(ellipse at 50% 0%, rgba(219,218,210,0.3) 0%, rgba(245,243,238,0) 70%)',
         }}
       />
 

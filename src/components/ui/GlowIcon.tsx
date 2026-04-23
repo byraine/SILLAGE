@@ -26,12 +26,12 @@ export type IconName =
   | 'globe'
   | 'warning'
 
-const GLOW_FILTER = 'drop-shadow(0 0 5px rgba(255,128,64,0.9)) drop-shadow(0 0 12px rgba(255,128,64,0.4))'
+const GLOW_FILTER = 'drop-shadow(0 1px 2px rgba(0,0,0,0.18))'
 
 function IconSVG({ name, size }: { name: IconName; size: number }) {
   const shared = {
     fill: 'none' as const,
-    stroke: '#FF8040',
+    stroke: '#3D3C39',
     strokeWidth: 1.5,
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,

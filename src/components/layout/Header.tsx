@@ -24,7 +24,7 @@ export function Header({ wardrobeCount: _wardrobeCount = 0 }: HeaderProps) {
                 key={item.path}
                 to={item.path}
                 className={`
-                  px-3 py-1.5 rounded-full text-[10px] uppercase tracking-[0.12em] font-medium no-underline transition-all duration-200
+                  px-3 py-1.5 rounded-full text-[10px] uppercase tracking-[0.12em] font-typewriter no-underline transition-all duration-200
                   ${isActive ? 'bg-accent/20 text-accent' : 'text-muted hover:text-text'}
                 `}
               >

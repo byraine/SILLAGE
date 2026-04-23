@@ -196,7 +196,7 @@ export function ResultsScreen() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse at 60% 0%, rgba(200,223,168,0.22) 0%, rgba(8,10,7,0) 60%), radial-gradient(ellipse at 20% 100%, rgba(139,168,112,0.18) 0%, rgba(8,10,7,0) 55%)',
+              'radial-gradient(ellipse at 60% 0%, rgba(219,218,210,0.3) 0%, rgba(245,243,238,0) 60%)',
           }}
         />
         <div className="absolute inset-0 video-overlay" />
@@ -267,7 +267,7 @@ export function ResultsScreen() {
         {/* ── Tab bar (fixed bottom — appears when inline bar scrolls out) ─ */}
         {tabsSticky && (
           <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50 px-4 pb-4 pt-2"
-            style={{ background: 'linear-gradient(to top, rgba(8,10,7,0.95) 60%, transparent)' }}
+            style={{ background: 'linear-gradient(to top, rgba(245,243,238,0.97) 60%, transparent)' }}
           >
             <div className="flex gap-1 glass rounded-full p-1">
               {([
@@ -364,10 +364,10 @@ export function ResultsScreen() {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <ellipse cx="40" cy="38" rx="34" ry="10" fill="rgba(200,223,168,0.55)" />
-                        <ellipse cx="26" cy="30" rx="17" ry="14" fill="rgba(200,223,168,0.55)" />
-                        <ellipse cx="44" cy="24" rx="19" ry="16" fill="rgba(200,223,168,0.55)" />
-                        <ellipse cx="60" cy="30" rx="14" ry="12" fill="rgba(200,223,168,0.55)" />
+                        <ellipse cx="40" cy="38" rx="34" ry="10" fill="rgba(196,30,58,0.50)" />
+                        <ellipse cx="26" cy="30" rx="17" ry="14" fill="rgba(196,30,58,0.50)" />
+                        <ellipse cx="44" cy="24" rx="19" ry="16" fill="rgba(196,30,58,0.50)" />
+                        <ellipse cx="60" cy="30" rx="14" ry="12" fill="rgba(196,30,58,0.50)" />
                       </svg>
                     </div>
                   ))}
@@ -398,7 +398,7 @@ export function ResultsScreen() {
                 </div>
                 <p className="text-text text-sm pt-1">
                   Improved impact:{' '}
-                  <span className="text-emerald-400 font-medium">{(improvedIpw * 1000).toFixed(1)} g CO₂e / wear</span>
+                  <span className="text-text font-medium">{(improvedIpw * 1000).toFixed(1)} g CO₂e / wear</span>
                 </p>
               </div>
             </GlassCard>
@@ -494,33 +494,58 @@ export function ResultsScreen() {
 
         {/* ── Always visible: actions ───────────────────────────────────── */}
         <div className="mt-8 space-y-4">
-          <button
-            onClick={() => setShowMethodology(true)}
-            className="w-full text-center text-xs text-faint hover:text-muted transition-colors py-2"
-          >
-            How are these estimates calculated? →
-          </button>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-row justify-center gap-6">
             <button
               onClick={handleSave}
               disabled={saved}
-              className={`flex-1 btn-primary py-4 text-sm tracking-wide ${saved ? 'opacity-60 cursor-not-allowed' : ''}`}
+              className={`btn-hero flex flex-col items-center justify-center text-[9px] tracking-widest uppercase font-sans ${saved ? 'opacity-60 cursor-not-allowed' : ''}`}
+              style={{
+                width: 80, height: 80,
+                borderRadius: '9999px',
+                border: '1px solid rgba(220,218,212,0.35)',
+                color: 'rgba(0,0,0,0.85)',
+                background: 'rgba(160,158,152,0.35)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                boxShadow: '0 0 16px rgba(200,200,195,0.15), inset 0 1px 0 rgba(255,255,255,0.15)',
+              }}
             >
-              {saved ? '✓ Saved to Wardrobe' : '+ Save to Wardrobe'}
+              <span className="text-lg mb-0.5">{saved ? '✓' : '+'}</span>
+              <span>{saved ? 'Saved' : 'Save'}</span>
             </button>
-            <Link to="/wardrobe" className="flex-1 btn-ghost text-sm text-center py-4 tracking-wide">
-              View Wardrobe
+            <Link
+              to="/wardrobe"
+              className="btn-hero flex flex-col items-center justify-center text-[9px] tracking-widest uppercase font-sans no-underline"
+              style={{
+                width: 80, height: 80,
+                borderRadius: '9999px',
+                border: '1px solid rgba(220,218,212,0.35)',
+                color: 'rgba(0,0,0,0.85)',
+                background: 'rgba(160,158,152,0.35)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                boxShadow: '0 0 16px rgba(200,200,195,0.15), inset 0 1px 0 rgba(255,255,255,0.15)',
+              }}
+            >
+              <span className="text-lg mb-0.5">↗</span>
+              <span>Wardrobe</span>
             </Link>
           </div>
           <button
             onClick={() => setShowShareCard(true)}
-            className="w-full flex items-center justify-center gap-2 rounded-2xl border border-border-bright py-4 text-sm text-muted hover:text-text hover:border-accent/30 transition-all duration-200 tracking-wide"
+            className="w-full flex items-center justify-center gap-2 rounded-2xl border border-burgundy/40 py-4 text-sm text-burgundy hover:border-burgundy transition-all duration-200 tracking-wide"
           >
             <span>↗</span> Share Impact Card
           </button>
           <Link to="/scan" className="block text-center text-xs text-muted hover:text-text transition-colors py-2">
             ← Scan another garment
           </Link>
+          <button
+            onClick={() => setShowMethodology(true)}
+            className="w-full text-center text-xs text-faint hover:text-muted transition-colors py-1"
+          >
+            How are these estimates calculated? →
+          </button>
         </div>
       </div>
     </div>

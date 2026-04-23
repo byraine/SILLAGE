@@ -66,36 +66,22 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           ref={cardRef}
           style={{
             width: 360,
-            background: 'linear-gradient(160deg, #0D110C 0%, #141A12 60%, #0D110C 100%)',
-            borderRadius: 24,
+            background: '#F5F3EE',
+            borderRadius: 2,
             padding: '32px 28px 28px',
-            fontFamily: 'Inter, system-ui, sans-serif',
+            fontFamily: '"IBM Plex Mono", "Courier New", monospace',
             position: 'relative',
             overflow: 'hidden',
+            border: '1px solid #D8D5CE',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
           }}
         >
-          {/* Decorative glow orbs */}
+          {/* Subtle paper texture overlay */}
           <div
             style={{
               position: 'absolute',
-              top: -60,
-              right: -60,
-              width: 200,
-              height: 200,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(200,223,168,0.18) 0%, transparent 70%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              bottom: -40,
-              left: -40,
-              width: 160,
-              height: 160,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(139,168,112,0.18) 0%, transparent 70%)',
+              inset: 0,
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(180,177,170,0.06) 24px)',
               pointerEvents: 'none',
             }}
           />
@@ -104,12 +90,12 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           <div style={{ marginBottom: 24, position: 'relative' }}>
             <p
               style={{
-                fontSize: 11,
-                letterSpacing: '0.25em',
+                fontSize: 9,
+                letterSpacing: '0.3em',
                 textTransform: 'uppercase',
-                color: '#8BA870',
+                color: '#A8A5A0',
                 margin: 0,
-                marginBottom: 2,
+                marginBottom: 4,
               }}
             >
               Impact Report
@@ -117,14 +103,13 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
             <p
               style={{
                 fontSize: 18,
-                fontWeight: 700,
-                letterSpacing: '0.2em',
+                fontWeight: 600,
+                letterSpacing: '0.25em',
                 textTransform: 'uppercase',
                 margin: 0,
-                background: 'linear-gradient(135deg, #D8ECC8 0%, #8BA870 45%, #C8DFA8 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                color: '#1A1916',
+                fontFamily: '"Poiret One", sans-serif',
+                color: '#C41E3A',
               }}
             >
               SILLAGE
@@ -135,7 +120,7 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           <div
             style={{
               height: 1,
-              background: 'linear-gradient(to right, transparent, rgba(139,168,112,0.4), transparent)',
+              background: 'rgba(180, 177, 170, 0.6)',
               marginBottom: 20,
             }}
           />
@@ -143,55 +128,45 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           {/* Garment name */}
           <p
             style={{
-              fontSize: 20,
-              fontWeight: 600,
-              color: '#F0F2ED',
+              fontSize: 18,
+              fontWeight: 500,
+              color: '#1A1916',
               margin: 0,
-              marginBottom: 4,
+              marginBottom: 3,
               lineHeight: 1.2,
+              fontFamily: '"Cormorant Garamond", Georgia, serif',
+              letterSpacing: '0.02em',
             }}
           >
             {garment.name}
           </p>
           <p
             style={{
-              fontSize: 12,
-              color: '#7A8E6A',
+              fontSize: 10,
+              color: '#A8A5A0',
               margin: 0,
-              marginBottom: 24,
+              marginBottom: 20,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
             }}
           >
             Made in {garment.countryOfOrigin}
           </p>
 
           {/* Material pills */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 24 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 22 }}>
             {garment.materials.map(m => (
               <span
                 key={m.name}
                 style={{
-                  fontSize: 11,
-                  padding: '3px 10px',
-                  borderRadius: 99,
-                  border: `1px solid ${
-                    m.fiberType === 'natural'
-                      ? 'rgba(16,185,129,0.35)'
-                      : m.fiberType === 'recycled'
-                      ? 'rgba(200,223,168,0.3)'
-                      : 'rgba(239,68,68,0.35)'
-                  }`,
-                  color:
-                    m.fiberType === 'natural'
-                      ? '#6EE7B7'
-                      : m.fiberType === 'recycled'
-                      ? '#C8DFA8'
-                      : '#FCA5A5',
-                  background:
-                    m.fiberType === 'natural'
-                      ? 'rgba(16,185,129,0.08)'
-                      : m.fiberType === 'recycled'
-                      ? 'rgba(200,223,168,0.08)'
-                      : 'rgba(239,68,68,0.08)',
+                  fontSize: 9,
+                  padding: '3px 9px',
+                  borderRadius: 0,
+                  border: '1px solid rgba(180,177,170,0.6)',
+                  color: '#3D3C39',
+                  background: 'rgba(219,218,210,0.5)',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
                   fontWeight: 500,
                 }}
               >
@@ -205,30 +180,30 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: 10,
-              marginBottom: 20,
+              gap: 8,
+              marginBottom: 18,
             }}
           >
             {[
-              { icon: <GlowIcon name="water" size={16} />, label: 'Water', value: formatLitres(impact.waterUsageLiters), color: '#B8CDA0' },
-              { icon: <GlowIcon name="leaf" size={16} />, label: 'Carbon', value: formatCarbon(impact.carbonKg), color: '#8BA870' },
-              { icon: <GlowIcon name="hourglass" size={16} />, label: 'Lifespan', value: `~${impact.durabilityWears} wears`, color: '#C8DFA8' },
-              { icon: <GlowIcon name="dress" size={16} />, label: 'Per Wear', value: `${ipwGrams} g CO₂e`, color: '#D8ECC8' },
+              { icon: <GlowIcon name="water" size={14} />, label: 'Water', value: formatLitres(impact.waterUsageLiters) },
+              { icon: <GlowIcon name="leaf" size={14} />, label: 'Carbon', value: formatCarbon(impact.carbonKg) },
+              { icon: <GlowIcon name="hourglass" size={14} />, label: 'Lifespan', value: `~${impact.durabilityWears} wears` },
+              { icon: <GlowIcon name="dress" size={14} />, label: 'Per Wear', value: `${ipwGrams} g CO₂e` },
             ].map(m => (
               <div
                 key={m.label}
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(46,61,37,0.7)',
-                  borderRadius: 14,
-                  padding: '12px 14px',
+                  background: 'rgba(228,225,218,0.6)',
+                  border: '1px solid rgba(180,177,170,0.5)',
+                  borderRadius: 0,
+                  padding: '10px 12px',
                 }}
               >
                 <div style={{ marginBottom: 4 }}>{m.icon}</div>
-                <p style={{ fontSize: 10, color: '#7A8E6A', margin: 0, marginBottom: 2, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <p style={{ fontSize: 8, color: '#A8A5A0', margin: 0, marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
                   {m.label}
                 </p>
-                <p style={{ fontSize: 14, fontWeight: 600, color: m.color, margin: 0 }}>
+                <p style={{ fontSize: 13, fontWeight: 500, color: '#1A1916', margin: 0 }}>
                   {m.value}
                 </p>
               </div>
@@ -239,15 +214,15 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           {impact.microplasticRisk !== 'none' && (
             <div
               style={{
-                background: 'rgba(239,68,68,0.07)',
-                border: '1px solid rgba(239,68,68,0.2)',
-                borderRadius: 10,
-                padding: '8px 12px',
-                marginBottom: 18,
+                background: 'rgba(219,218,210,0.5)',
+                border: '1px solid rgba(180,177,170,0.5)',
+                borderRadius: 0,
+                padding: '7px 11px',
+                marginBottom: 16,
               }}
             >
-              <p style={{ fontSize: 11, color: '#FCA5A5', margin: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
-                <GlowIcon name="microscope" size={11} /> {microLabel} — {impact.syntheticPercent}% synthetic content
+              <p style={{ fontSize: 9, color: '#726F6A', margin: 0, display: 'flex', alignItems: 'center', gap: 4, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <GlowIcon name="microscope" size={10} /> {microLabel} — {impact.syntheticPercent}% synthetic
               </p>
             </div>
           )}
@@ -256,7 +231,7 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           <div
             style={{
               height: 1,
-              background: 'linear-gradient(to right, transparent, rgba(46,61,37,0.8), transparent)',
+              background: 'rgba(180, 177, 170, 0.5)',
               marginBottom: 14,
             }}
           />
@@ -264,11 +239,12 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
           {/* Footer */}
           <p
             style={{
-              fontSize: 10,
-              color: '#2E3D25',
+              fontSize: 8,
+              color: '#A8A5A0',
               margin: 0,
               textAlign: 'center',
-              letterSpacing: '0.04em',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
             }}
           >
             Educational estimate only · sillage.design

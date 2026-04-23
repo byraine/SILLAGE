@@ -107,7 +107,6 @@ export function ShareCard({ garment, impact, onClose }: ShareCardProps) {
                 letterSpacing: '0.25em',
                 textTransform: 'uppercase',
                 margin: 0,
-                color: '#1A1916',
                 fontFamily: '"Poiret One", sans-serif',
                 color: '#C41E3A',
               }}

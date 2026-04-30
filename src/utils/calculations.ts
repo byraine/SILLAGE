@@ -289,3 +289,104 @@ export const MICROPLASTIC_COLORS: Record<string, string> = {
   medium: 'text-orange-400',
   high: 'text-red-400',
 }
+
+// ── Human-friendly storytelling helpers ──────────────────────────────────────
+
+const MATERIAL_DESCRIPTORS: Record<string, string> = {
+  Cotton: 'water-heavy production',
+  'Organic Cotton': 'lower impact cotton',
+  'Recycled Cotton': 'built for circularity',
+  Polyester: 'sheds plastic fibers',
+  'Recycled Polyester': 'lower impact synthetic',
+  Linen: 'lower impact choice',
+  Wool: 'high carbon cost',
+  Silk: 'high carbon cost',
+  Nylon: 'sheds plastic fibers',
+  Acrylic: 'sheds plastic fibers',
+  Viscose: 'semi-synthetic',
+  Lyocell: 'gentler semi-synthetic',
+  Modal: 'semi-synthetic blend',
+  Hemp: 'lower impact choice',
+}
+
+export function getMaterialDescriptor(material: Material): string {
+  return MATERIAL_DESCRIPTORS[material.name] ?? material.fiberType
+}
+
+export function getWaterLabel(liters: number): string {
+  if (liters < 1000) return 'water-efficient'
+  if (liters < 4000) return 'moderate water use'
+  if (liters < 8000) return 'water-heavy production'
+  return 'very thirsty to make'
+}
+
+export function getCarbonLabel(kg: number): string {
+  if (kg < 3) return 'low carbon'
+  if (kg < 6) return 'moderate footprint'
+  if (kg < 12) return 'carbon-heavy'
+  return 'high carbon cost'
+}
+
+export function getDurabilityLabel(wears: number): string {
+  if (wears < 50) return 'wears out faster'
+  if (wears < 70) return 'average lifespan'
+  if (wears < 90) return 'built to last'
+  return 'made to endure'
+}
+
+export function getEndOfLifeLabel(materials: Material[]): string {
+  const syntheticPct = materials
+    .filter(m => m.fiberType === 'synthetic')
+    .reduce((sum, m) => sum + m.percentage, 0)
+  if (syntheticPct === 0) return 'easier to return to earth'
+  if (syntheticPct < 50) return 'limited end-of-life options'
+  return 'less biodegradable'
+}
+
+export function getMicroplasticShortLabel(risk: MicroplasticRisk): string {
+  if (risk === 'none') return ''
+  if (risk === 'low') return 'light plastic shedding'
+  if (risk === 'medium') return 'sheds plastic fibers'
+  return 'heavy plastic shedding'
+}
+
+export function getWhatThisMeans(garment: Garment, impact: GarmentImpact): string {
+  const isFullySynthetic = impact.syntheticPercent >= 80
+  const isFullyNatural = impact.syntheticPercent === 0
+  const isHighWater = impact.waterUsageLiters > 5000
+  const isHighCarbon = impact.carbonKg > 8
+  const isRecycled = garment.materials.some(m => m.fiberType === 'recycled')
+
+  if (isRecycled && !isFullySynthetic) {
+    return `Recycled fiber dramatically cuts the production footprint compared to virgin materials. This is one of the more responsible choices available.`
+  }
+  if (isFullySynthetic && isHighCarbon) {
+    return `Fully synthetic and shipped a long way — the production cost is real. Wearing it consistently to its full lifespan is the most meaningful thing you can do.`
+  }
+  if (isFullySynthetic) {
+    return `Synthetic fibers are energy-intensive to make and shed microplastics with every wash. Wearing it often and washing gently makes a meaningful difference.`
+  }
+  if (isHighWater && isFullyNatural && !isHighCarbon) {
+    return `Natural fiber means no plastic shedding and clean biodegradation — but growing it uses a significant amount of water. Wearing it often is the best way to make that cost count.`
+  }
+  if (!isHighWater && isFullyNatural) {
+    return `A genuinely lower-impact choice: natural fiber, relatively efficient to produce, and easy to return to the earth when you're done with it.`
+  }
+  if (isHighWater && isHighCarbon) {
+    return `High water and carbon costs in production — the best thing you can do is wear it as many times as possible before it needs replacing.`
+  }
+  return `A balanced profile — moderate impact across the board. Wearing it consistently and caring for it gently is the most effective thing you can do.`
+}
+
+export function getBestNextStep(_garment: Garment, impact: GarmentImpact): string {
+  if (impact.microplasticRisk !== 'none') {
+    return `Use a microplastic filter bag every time you wash it — it catches plastic fibers before they reach the ocean.`
+  }
+  if (impact.waterUsageLiters > 5000) {
+    return `Wear it as many times as possible before washing — the water cost is already spent, so more wears is the best thing you can do.`
+  }
+  if (impact.carbonKg > 8) {
+    return `Every extra wear cuts the per-wear footprint. Aim to wear it at least ${impact.durabilityWears} times over its life.`
+  }
+  return `When you're done with it, donate, resell, or compost — natural fibers can return to the earth cleanly.`
+}

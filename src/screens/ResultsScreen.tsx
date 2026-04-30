@@ -14,6 +14,14 @@ import {
   formatCarbon,
   calcImprovedImpactPerWear,
   MICROPLASTIC_LABELS,
+  getMaterialDescriptor,
+  getWaterLabel,
+  getCarbonLabel,
+  getDurabilityLabel,
+  getEndOfLifeLabel,
+  getMicroplasticShortLabel,
+  getWhatThisMeans,
+  getBestNextStep,
 } from '../utils/calculations'
 import { LABOR_CONTEXT, TRANSPORT_LABELS } from '../data/garments'
 import type { Garment, GarmentImpact } from '../types/fashion'
@@ -114,6 +122,7 @@ export function ResultsScreen() {
   const [showShareCard, setShowShareCard] = useState(false)
   const [extraWears, setExtraWears] = useState(20)
   const [activeTab, setActiveTab] = useState<'metrics' | 'stories' | 'reduce'>('metrics')
+  const [showFullData, setShowFullData] = useState(false)
   const [tabsSticky, setTabsSticky] = useState(false)
   const tabBarRef = useRef<HTMLDivElement>(null)
   const [clouds, setClouds] = useState<{ id: number; pct: number; size: number; drift: number }[]>([])
@@ -291,45 +300,73 @@ export function ResultsScreen() {
 
         {/* ── Tab: Impact Metrics ───────────────────────────────────────── */}
         {activeTab === 'metrics' && (
-          <div className="space-y-6">
-            <GlassCard className="p-5">
-              <p className="text-[10px] text-muted uppercase tracking-[0.4em] mb-5 border-b border-border pb-3">
-                Material Composition
-              </p>
-              <div className="flex flex-wrap gap-8 text-sm">
-                <div>
-                  <span className="text-muted text-xs uppercase tracking-wide block mb-1">Origin</span>
-                  <p className="text-text">{garment.countryOfOrigin}</p>
-                </div>
-                <div>
-                  <span className="text-muted text-xs uppercase tracking-wide block mb-1">Transport</span>
-                  <p className="text-text text-xs mt-0.5 max-w-[220px] leading-snug">{transportLabel}</p>
-                </div>
-              </div>
-            </GlassCard>
+          <div className="space-y-4">
 
-            <div>
-              <p className="text-[10px] text-muted uppercase tracking-[0.4em] mb-4 px-1 border-b border-border pb-3">
-                Core Impact Metrics
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="col-span-2">
-                  <ImpactMetricCard icon={<GlowIcon name="water" />} label="Water Usage" value={formatLitres(impact.waterUsageLiters)} subtext="Total estimated water footprint from fiber to finished garment" accent="violet" />
+            {/* 1. Material name + descriptor chips */}
+            <div className="flex flex-wrap gap-2">
+              {garment.materials.map(m => (
+                <div
+                  key={m.name}
+                  className="glass rounded-full px-3.5 py-1.5 flex items-center gap-1.5"
+                >
+                  <span className="text-xs font-medium text-text">{m.name}</span>
+                  {garment.materials.length > 1 && (
+                    <span className="text-[10px] text-faint">{m.percentage}%</span>
+                  )}
+                  <span className="text-[10px] text-muted">· {getMaterialDescriptor(m)}</span>
                 </div>
-                <ImpactMetricCard icon={<GlowIcon name="leaf" />} label="Carbon Footprint" value={formatCarbon(impact.carbonKg)} subtext="Manufacturing + transport + basic care phase" accent="pink" />
-                <ImpactMetricCard
-                  icon={<GlowIcon name="microscope" />}
-                  label="Microplastics"
-                  value={MICROPLASTIC_LABELS[impact.microplasticRisk]}
-                  subtext={impact.microplasticRisk === 'none' ? 'No synthetic fibers — no shedding risk' : `${impact.syntheticPercent}% synthetic content sheds microfibers in each wash`}
-                  accent={impact.microplasticRisk === 'none' ? 'emerald' : impact.microplasticRisk === 'low' ? 'orange' : 'red'}
-                />
-                <div className="col-span-2">
-                  <ImpactMetricCard icon={<GlowIcon name="hourglass" />} label="Estimated Lifespan" value={`~${impact.durabilityWears} wears`} subtext="Based on garment type and fiber composition" accent="violet" />
-                </div>
-              </div>
+              ))}
             </div>
 
+            {/* 2. Impact snapshot rows */}
+            <GlassCard className="overflow-hidden">
+              {(
+                [
+                  {
+                    icon: <GlowIcon name="water" size={16} />,
+                    label: getWaterLabel(impact.waterUsageLiters),
+                    value: formatLitres(impact.waterUsageLiters),
+                  },
+                  {
+                    icon: <GlowIcon name="leaf" size={16} />,
+                    label: getCarbonLabel(impact.carbonKg),
+                    value: formatCarbon(impact.carbonKg),
+                  },
+                  {
+                    icon: <GlowIcon name="hourglass" size={16} />,
+                    label: getDurabilityLabel(impact.durabilityWears),
+                    value: `~${impact.durabilityWears} wears`,
+                  },
+                  {
+                    icon: <GlowIcon name="seedling" size={16} />,
+                    label: getEndOfLifeLabel(garment.materials),
+                    value: null,
+                  },
+                  ...(impact.microplasticRisk !== 'none'
+                    ? [
+                        {
+                          icon: <GlowIcon name="microscope" size={16} />,
+                          label: getMicroplasticShortLabel(impact.microplasticRisk),
+                          value: `${impact.syntheticPercent}% synthetic`,
+                        },
+                      ]
+                    : []),
+                ] as { icon: React.ReactNode; label: string; value: string | null }[]
+              ).map((row, i, arr) => (
+                <div
+                  key={i}
+                  className={`flex items-center gap-3 px-5 py-3.5${i < arr.length - 1 ? ' border-b border-border' : ''}`}
+                >
+                  <span className="opacity-50 flex-shrink-0">{row.icon}</span>
+                  <span className="text-sm text-text flex-1 leading-snug">{row.label}</span>
+                  {row.value && (
+                    <span className="text-xs text-muted tabular-nums">{row.value}</span>
+                  )}
+                </div>
+              ))}
+            </GlassCard>
+
+            {/* Impact Per Wear */}
             <GlassCard variant="pink" className="p-5">
               <p className="text-[10px] text-muted uppercase tracking-[0.4em] mb-3 border-b border-border pb-3">
                 Impact Per Wear
@@ -338,14 +375,13 @@ export function ResultsScreen() {
                 {(impact.impactPerWear * 1000).toFixed(1)}{' '}
                 <span className="text-2xl font-normal">g CO₂e</span>
               </p>
-              <p className="text-muted text-xs mb-8">per wear, based on estimated lifespan</p>
+              <p className="text-muted text-xs mb-8">The quiet emissions behind making, moving, and wearing this piece.</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-muted">If you wear it {extraWears} more times…</span>
                   <span className="text-accent font-medium">{ipwSavingPct}% less per wear</span>
                 </div>
 
-                {/* Slider + floating clouds */}
                 <div className="relative">
                   {clouds.map(c => (
                     <div
@@ -402,6 +438,71 @@ export function ResultsScreen() {
                 </p>
               </div>
             </GlassCard>
+
+            {/* 3. What this means */}
+            <div className="px-1 py-0.5">
+              <p className="text-sm text-muted leading-relaxed italic">
+                {getWhatThisMeans(garment, impact)}
+              </p>
+            </div>
+
+            {/* 5. See full data toggle */}
+            <button
+              onClick={() => setShowFullData(v => !v)}
+              className="flex items-center gap-1.5 text-xs text-faint hover:text-muted transition-colors py-1"
+            >
+              <span
+                className="inline-block transition-transform duration-200"
+                style={{ transform: showFullData ? 'rotate(90deg)' : 'rotate(0deg)' }}
+              >
+                ›
+              </span>
+              {showFullData ? 'hide full data' : 'see full data'}
+            </button>
+
+            {/* Full data section */}
+            {showFullData && (
+              <div className="space-y-6 pt-2">
+                <GlassCard className="p-5">
+                  <p className="text-[10px] text-muted uppercase tracking-[0.4em] mb-5 border-b border-border pb-3">
+                    Material Composition
+                  </p>
+                  <div className="flex flex-wrap gap-8 text-sm">
+                    <div>
+                      <span className="text-muted text-xs uppercase tracking-wide block mb-1">Origin</span>
+                      <p className="text-text">{garment.countryOfOrigin}</p>
+                    </div>
+                    <div>
+                      <span className="text-muted text-xs uppercase tracking-wide block mb-1">Transport</span>
+                      <p className="text-text text-xs mt-0.5 max-w-[220px] leading-snug">{transportLabel}</p>
+                    </div>
+                  </div>
+                </GlassCard>
+
+                <div>
+                  <p className="text-[10px] text-muted uppercase tracking-[0.4em] mb-4 px-1 border-b border-border pb-3">
+                    Core Impact Metrics
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="col-span-2">
+                      <ImpactMetricCard icon={<GlowIcon name="water" />} label="Water Usage" value={formatLitres(impact.waterUsageLiters)} subtext="Total estimated water footprint from fiber to finished garment" accent="violet" />
+                    </div>
+                    <ImpactMetricCard icon={<GlowIcon name="leaf" />} label="Carbon Footprint" value={formatCarbon(impact.carbonKg)} subtext="Manufacturing + transport + basic care phase" accent="pink" />
+                    <ImpactMetricCard
+                      icon={<GlowIcon name="microscope" />}
+                      label="Microplastics"
+                      value={MICROPLASTIC_LABELS[impact.microplasticRisk]}
+                      subtext={impact.microplasticRisk === 'none' ? 'No synthetic fibers — no shedding risk' : `${impact.syntheticPercent}% synthetic content sheds microfibers in each wash`}
+                      accent={impact.microplasticRisk === 'none' ? 'emerald' : impact.microplasticRisk === 'low' ? 'orange' : 'red'}
+                    />
+                    <div className="col-span-2">
+                      <ImpactMetricCard icon={<GlowIcon name="hourglass" />} label="Estimated Lifespan" value={`~${impact.durabilityWears} wears`} subtext="Based on garment type and fiber composition" accent="violet" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
           </div>
         )}
 

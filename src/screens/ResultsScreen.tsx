@@ -21,7 +21,6 @@ import {
   getEndOfLifeLabel,
   getMicroplasticShortLabel,
   getWhatThisMeans,
-  getBestNextStep,
 } from '../utils/calculations'
 import { LABOR_CONTEXT, TRANSPORT_LABELS } from '../data/garments'
 import type { Garment, GarmentImpact } from '../types/fashion'

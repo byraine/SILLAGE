@@ -326,21 +326,28 @@ export function ResultsScreen() {
                     icon: <GlowIcon name="water" size={16} />,
                     label: getWaterLabel(impact.waterUsageLiters),
                     value: formatLitres(impact.waterUsageLiters),
+                    labelColor: impact.waterUsageLiters < 1000 ? 'text-emerald-600' : impact.waterUsageLiters < 4000 ? 'text-amber-600' : 'text-red-500',
                   },
                   {
                     icon: <GlowIcon name="leaf" size={16} />,
                     label: getCarbonLabel(impact.carbonKg),
                     value: formatCarbon(impact.carbonKg),
+                    labelColor: impact.carbonKg < 3 ? 'text-emerald-600' : impact.carbonKg < 6 ? 'text-amber-600' : 'text-red-500',
                   },
                   {
                     icon: <GlowIcon name="hourglass" size={16} />,
                     label: getDurabilityLabel(impact.durabilityWears),
                     value: `~${impact.durabilityWears} wears`,
+                    labelColor: impact.durabilityWears >= 75 ? 'text-emerald-600' : impact.durabilityWears >= 50 ? 'text-amber-600' : 'text-red-500',
                   },
                   {
                     icon: <GlowIcon name="seedling" size={16} />,
                     label: getEndOfLifeLabel(garment.materials),
                     value: null,
+                    labelColor: (() => {
+                      const synPct = garment.materials.filter(m => m.fiberType === 'synthetic').reduce((s, m) => s + m.percentage, 0)
+                      return synPct === 0 ? 'text-emerald-600' : synPct < 50 ? 'text-amber-600' : 'text-red-500'
+                    })(),
                   },
                   ...(impact.microplasticRisk !== 'none'
                     ? [
@@ -348,17 +355,18 @@ export function ResultsScreen() {
                           icon: <GlowIcon name="microscope" size={16} />,
                           label: getMicroplasticShortLabel(impact.microplasticRisk),
                           value: `${impact.syntheticPercent}% synthetic`,
+                          labelColor: impact.microplasticRisk === 'low' ? 'text-amber-600' : 'text-red-500',
                         },
                       ]
                     : []),
-                ] as { icon: React.ReactNode; label: string; value: string | null }[]
+                ] as { icon: React.ReactNode; label: string; value: string | null; labelColor: string }[]
               ).map((row, i, arr) => (
                 <div
                   key={i}
                   className={`flex items-center gap-3 px-5 py-3.5${i < arr.length - 1 ? ' border-b border-border' : ''}`}
                 >
                   <span className="opacity-50 flex-shrink-0">{row.icon}</span>
-                  <span className="text-sm text-text flex-1 leading-snug">{row.label}</span>
+                  <span className={`text-sm flex-1 leading-snug ${row.labelColor}`}>{row.label}</span>
                   {row.value && (
                     <span className="text-xs text-muted tabular-nums">{row.value}</span>
                   )}

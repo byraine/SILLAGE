@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 const navItems = [
   { path: '/', label: 'Home' },
   { path: '/scan', label: 'Scan' },
-  { path: '/wardrobe', label: 'Wardrobe' },
-  { path: '/impact', label: 'Impact' },
+  { path: '/wardrobe', label: 'Memory' },
+  { path: '/impact', label: 'Action' },
 ]
 
 interface HeaderProps {

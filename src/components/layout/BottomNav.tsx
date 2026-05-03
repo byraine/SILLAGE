@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 const navItems = [
   { path: '/', label: 'Home', icon: '◎' },
   { path: '/scan', label: 'Scan', icon: '◈' },
-  { path: '/wardrobe', label: 'Wardrobe', icon: '◉' },
-  { path: '/impact', label: 'Impact', icon: '◎' },
+  { path: '/wardrobe', label: 'Memory', icon: '◉' },
+  { path: '/impact', label: 'Action', icon: '◎' },
 ]
 
 export function BottomNav() {

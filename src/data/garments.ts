@@ -24,14 +24,6 @@ export const PRESET_GARMENTS: Garment[] = [
     tags: ['blended', 'casual'],
   },
   {
-    id: 'g-003',
-    name: '100% Polyester Dress',
-    category: 'dress',
-    materials: [{ name: 'Polyester', percentage: 100, fiberType: 'synthetic' }],
-    countryOfOrigin: 'China',
-    tags: ['synthetic', 'fast fashion'],
-  },
-  {
     id: 'g-004',
     name: 'Linen Shirt',
     category: 'shirt',
@@ -46,6 +38,22 @@ export const PRESET_GARMENTS: Garment[] = [
     materials: [{ name: 'Recycled Cotton', percentage: 100, fiberType: 'recycled' }],
     countryOfOrigin: 'Turkey',
     tags: ['recycled', 'denim', 'outerwear'],
+  },
+  {
+    id: 'g-006',
+    name: '100% Wool Sweater',
+    category: 'hoodie',
+    materials: [{ name: 'Wool', percentage: 100, fiberType: 'natural' }],
+    countryOfOrigin: 'India',
+    tags: ['wool', 'knitwear', 'natural'],
+  },
+  {
+    id: 'g-007',
+    name: '100% Polyester Jacket',
+    category: 'jacket',
+    materials: [{ name: 'Polyester', percentage: 100, fiberType: 'synthetic' }],
+    countryOfOrigin: 'China',
+    tags: ['synthetic', 'outerwear', 'fast fashion'],
   },
 ]
 
